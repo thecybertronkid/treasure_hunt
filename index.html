@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connect and Conquer</title>
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, rgb(140, 0, 255), rgb(255, 204, 0));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .timer {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.2rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: auto;
+    }
+
+    h1 {
+      font-size: 4rem;
+      text-align: center;
+      animation: fadeIn 2s ease-out forwards;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background: white;
+      color: black;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="timer">
+    Remaining Time for Completion: <span id="countdown">00:00</span>
+  </div>
+
+  <img src="https://thelushminds.com/wp-content/uploads/2025/06/cropped-TLM-1563x1563-1-298x300.png" alt="Logo" class="logo">
+
+  <h1>Connect and Conquer</h1>
+  <a href="R1.html" class="button">Start Hunt</a>
+
+  <div class="footer">
+    Copyright © 2025 The Lush Minds
+  </div>
+
+  <script>
+    // Set countdown time in seconds (e.g., 1 hour = 3600 seconds)
+    let timeLeft = 60 * 60;
+
+    const countdownEl = document.getElementById('countdown');
+
+    function updateCountdown() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+
+      countdownEl.textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      if (timeLeft > 0) {
+        timeLeft--;
+      } else {
+        clearInterval(timerInterval);
+        countdownEl.textContent = "00:00";
+      }
+    }
+
+    updateCountdown();
+    const timerInterval = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>

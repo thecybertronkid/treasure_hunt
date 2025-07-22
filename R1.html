@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Treasure Hunt Details</title>
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, rgb(191, 0, 255), rgb(255, 217, 0));
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 800px;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 25px;
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: white;
+      color: black;
+    }
+
+    #secretMessage {
+      margin-top: 40px;
+      font-size: 2rem;
+      font-weight: 700;
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #secretMessage a.secret-link {
+      color: #00ffff;
+      text-decoration: underline;
+    }
+
+    #secretMessage a.youtube-link {
+      color: #00ffff;
+      margin-left: 15px;
+      text-decoration: underline;
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 20px 0;
+      color: #ccc;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Hunt Details</h1>
+  <p>
+    Welcome to the Treasure Hunt HQ!<br><br>
+    📍 Your mission is to solve clues hidden across various checkpoints.<br>
+    🕵️‍♂️ Each clue will guide you to the next location.<br>
+    ⏳ Complete all challenges before time runs out to claim the ultimate prize!<br><br>
+    Are you ready to begin?
+  </p>
+
+  <!-- Reveal button -->
+  <button class="button" onclick="revealMessage()">Reveal Secret</button>
+
+  <!-- Hidden message with secret link -->
+  <div id="secretMessage">
+    Find the <a href="R2.html" class="secret-link">Resistance</a> — Save the World!
+    <a href="https://youtu.be/xvFZjo5PgG0?si=HZMjHXfhEvdWvFba" target="_blank" class="youtube-link">Watch Clue</a>
+  </div>
+
+  <br><br>
+  <a href="index.html" class="button">Back to HQ</a>
+
+  <footer>
+    Copyright © 2025 The Lush Minds
+  </footer>
+
+  <script>
+    function revealMessage() {
+      const msg = document.getElementById('secretMessage');
+      msg.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

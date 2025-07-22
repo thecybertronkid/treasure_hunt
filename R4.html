@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Retro Terminal</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      position: absolute;
+      top: 30px;
+      font-size: 2em;
+      font-weight: bold;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    .terminal {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 20px #00ff00;
+      width: 80%;
+      max-width: 800px;
+      height: 60%;
+      padding: 20px;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .output {
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .input-line {
+      display: flex;
+    }
+
+    .prompt {
+      margin-right: 5px;
+    }
+
+    input {
+      background: transparent;
+      border: none;
+      color: #00ff00;
+      font-family: inherit;
+      font-size: 1em;
+      flex: 1;
+      outline: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Retro scanline effect */
+    .terminal::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 0, 0.05),
+        rgba(0, 255, 0, 0.05) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Flicker animation */
+    .terminal {
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.95;
+      }
+    }
+
+    /* Retro stars background */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #00ff00;
+      animation: moveStars 5s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+  <h1>THE OLD QUARTERS</h1>
+
+  <div class="stars"></div>
+
+  <div class="terminal" id="terminal">
+    <div class="output">Somehow you ended up in the 1980s! Type <span style="color:yellow">/help</span> for clues.</div>
+    <div class="input-line">
+      <span class="prompt">&gt;</span>
+      <input type="text" id="input" autofocus />
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('input');
+    const terminal = document.getElementById('terminal');
+
+    const commands = {
+      '/help': 'Available commands:\n/lush\n/minds\n/ayan\n/clue\n/next\n/clear',
+      '/lush': 'Lush: The forest whispers secrets of the past.',
+      '/minds': 'Minds: Collective thoughts guide your way.',
+      '/ayan': 'Ayan: Keeper of the hidden keys.',
+      '/clue': 'Clue: Seek what’s unseen between the lines.',
+      '/next': 'Next: The journey continues if you dare...'
+    };
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const value = input.value.trim();
+        if (value) {
+          addOutput(`> ${value}`);
+          handleCommand(value);
+          input.value = '';
+        }
+      }
+    });
+
+    function handleCommand(cmd) {
+      if (commands[cmd]) {
+        addOutput(commands[cmd]);
+      } else if (cmd === '/clear') {
+        clearTerminal();
+      } else {
+        addOutput(`Unknown command: ${cmd}`);
+      }
+    }
+
+    function addOutput(text) {
+      const output = document.createElement('div');
+      output.className = 'output';
+      output.textContent = text;
+      terminal.insertBefore(output, terminal.querySelector('.input-line'));
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    function clearTerminal() {
+      const outputs = terminal.querySelectorAll('.output');
+      outputs.forEach(el => el.remove());
+    }
+
+    // Generate stars
+    const starsContainer = document.querySelector('.stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * -100}vh`;
+      star.style.animationDuration = `${2 + Math.random() * 3}s`;
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>
